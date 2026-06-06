@@ -1169,8 +1169,8 @@ function simulateMatchScores(teamA, teamB, isKnockout = false) {
     const diff = rankB - rankA;
 
     // Calculate expected goals (lambda), clamping to reasonable football bounds
-    const lambdaA = Math.max(0.2, Math.min(4.5, 1.35 + (diff / 35)));
-    const lambdaB = Math.max(0.2, Math.min(4.5, 1.35 - (diff / 35)));
+    const lambdaA = Math.max(0.1, Math.min(4.5, 1.35 + (diff / 18)));
+    const lambdaB = Math.max(0.1, Math.min(4.5, 1.35 - (diff / 18)));
 
     const scoreA = poissonRandom(lambdaA);
     const scoreB = poissonRandom(lambdaB);
