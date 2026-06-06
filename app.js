@@ -490,7 +490,8 @@ let predictions = JSON.parse(JSON.stringify(INITIAL_PREDICTIONS));
 let currentTab = 'matches';
 let timezoneMode = 'local';
 let customTz = 'Asia/Shanghai';
-let currentLanguage = 'zh';
+const browserLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+let currentLanguage = browserLang.startsWith('zh') ? 'zh' : 'en';
 
 // Standings computed state
 let groupStandings = {};
