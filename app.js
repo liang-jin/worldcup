@@ -69,7 +69,7 @@ const TRANSLATIONS = {
         
         // Timezone labels
         tz_local: "📍 Local Time",
-        tz_custom: "⚙️ Custom Zone",
+        tz_custom: "⚙️ Time Zone",
         
         // Alerts
         alert_reset_confirm: "Are you sure you want to reset all your predictions to the base approved prediction state?",
@@ -187,7 +187,7 @@ const TRANSLATIONS = {
         
         // Timezone labels
         tz_local: "📍 当地时间",
-        tz_custom: "⚙️ 自定义时区",
+        tz_custom: "⚙️ 选择时区",
         
         // Alerts
         alert_reset_confirm: "您确定要重置所有预测到预设状态吗？",
@@ -693,7 +693,7 @@ function renderHelpContainer() {
                 </p>
                 <ul class="help-list">
                     <li><strong>当地时间</strong>：以您当前设备的本地时区显示比赛开球时间。</li>
-                    <li><strong>自定义时区</strong>：从下拉菜单中选择世界上任何主要时区（默认显示为北京时间 CST UTC+8）。</li>
+                    <li><strong>选择时区</strong>：从下拉菜单中选择世界上任何主要时区（默认显示为北京时间 CST UTC+8）。</li>
                     <li><strong>界面语言</strong>：点击 🇺🇸 EN / 🇨🇳 中文 按钮可以在英文和中文之间即时切换。</li>
                 </ul>
             </div>
@@ -741,7 +741,7 @@ function renderHelpContainer() {
                 </p>
                 <ul class="help-list">
                     <li><strong>Local Time</strong>: Displays the kickoff in your device's current timezone.</li>
-                    <li><strong>Custom Zone</strong>: Allows you to select any major timezone (defaults to Beijing Time CST UTC+8).</li>
+                    <li><strong>Time Zone</strong>: Allows you to select any major timezone (defaults to Beijing Time CST UTC+8).</li>
                     <li><strong>Language</strong>: Click the 🇺🇸 EN / 🇨🇳 中文 buttons in the header to switch languages instantly.</li>
                 </ul>
             </div>
