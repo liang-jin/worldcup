@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIFA World Cup 2026 Schedule & Predictor</title>
+    <meta name="description" content="View the complete schedule of the 2026 FIFA World Cup. Make match predictions, calculate group standings, and simulate the knockout bracket in California and Beijing time zones.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- App Header -->
+    <header class="app-header">
+        <div class="header-container">
+            <div class="brand">
+                <span class="logo-trophy">🏆</span>
+                <div>
+                    <h1>WORLD CUP 2026</h1>
+                    <p id="brandSubtitle" style="font-size: 0.7rem; color: var(--text-secondary); font-weight: 500; letter-spacing: 0.05em;">PREDICTOR & SCHEDULE</p>
+                </div>
+                <span id="teamsCount">48 Teams</span>
+            </div>
+
+            <!-- Global Actions and Timezone Switcher -->
+            <div class="global-controls">
+                <div class="timezone-selector-container">
+                    <div class="timezone-selector" id="timezoneSelector">
+                        <button class="tz-btn active" data-tz-mode="local" id="btn-tz-local">📍 Local Time</button>
+                        <button class="tz-btn" data-tz-mode="custom" id="btn-tz-custom">⚙️ Custom Zone</button>
+                    </div>
+                    <select class="tz-select" id="customTzSelect" style="display: none;">
+                        <option value="Asia/Shanghai" selected>🇨🇳 Beijing Time (CST)</option>
+                        <option value="America/Los_Angeles">🇺🇸 California (PT)</option>
+                        <option value="America/Denver">🇺🇸 Mountain (MT)</option>
+                        <option value="America/Chicago">🇺🇸 Central (CT)</option>
+                        <option value="America/New_York">🇺🇸 Eastern (ET)</option>
+                        <option value="America/Mexico_City">🇲🇽 Mexico City</option>
+                        <option value="America/Toronto">🇨🇦 Toronto</option>
+                        <option value="Europe/London">🇬🇧 London (GMT/BST)</option>
+                        <option value="Europe/Paris">🇫🇷 Paris (CET/CEST)</option>
+                        <option value="Asia/Tokyo">🇯🇵 Tokyo (JST)</option>
+                        <option value="Australia/Sydney">🇦🇺 Sydney (AET)</option>
+                        <option value="UTC">🌐 UTC</option>
+                    </select>
+                </div>
+
+                <div class="language-selector" id="languageSelector">
+                    <button class="lang-btn" data-lang="en" id="btn-lang-en">🇺🇸 EN</button>
+                    <button class="lang-btn active" data-lang="zh" id="btn-lang-zh">🇨🇳 中文</button>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-gold" id="btnSimulate" title="Generate random predictions">⚡ Quick Simulate</button>
+                    <button class="btn btn-danger" id="btnReset" title="Reset to the base approved prediction state">🔄 Reset</button>
+                    <button class="btn btn-danger" id="btnClear" style="background-color: rgba(239, 68, 68, 0.05); color: var(--accent-red); border-color: rgba(239, 68, 68, 0.15);" title="Clear all predictions to blank">🗑️ Clear All</button>
+                    <button class="btn" id="btnExport" title="Save predictions to a file">📥 Export</button>
+                    <button class="btn" id="btnImport" title="Load predictions from a file">📤 Import</button>
+                    <input type="file" id="importFile" accept=".json" style="display: none;">
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs" id="navTabs">
+            <button class="tab-link active" data-tab="matches" id="tab-matches">📅 Group Matches</button>
+            <button class="tab-link" data-tab="standings" id="tab-standings">📊 Group Standings</button>
+            <button class="tab-link" data-tab="bracket" id="tab-bracket">🪜 Knockout Bracket</button>
+            <button class="tab-link" data-tab="help" id="tab-help">ℹ️ Rules & Info</button>
+        </nav>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="app-content">
+
+        <!-- Matches Tab -->
+        <section class="tab-panel active" id="panel-matches">
+            <!-- Filter & Search Bar -->
+            <div class="filter-bar">
+                <div class="filters-group">
+                    <select class="filter-select" id="filterGroup">
+                        <option value="all">All Groups</option>
+                        <option value="A">Group A</option>
+                        <option value="B">Group B</option>
+                        <option value="C">Group C</option>
+                        <option value="D">Group D</option>
+                        <option value="E">Group E</option>
+                        <option value="F">Group F</option>
+                        <option value="G">Group G</option>
+                        <option value="H">Group H</option>
+                        <option value="I">Group I</option>
+                        <option value="J">Group J</option>
+                        <option value="K">Group K</option>
+                        <option value="L">Group L</option>
+                    </select>
+
+                    <select class="filter-select" id="filterCity">
+                        <option value="all">All Host Cities</option>
+                        <option value="Atlanta">Atlanta</option>
+                        <option value="Boston">Boston</option>
+                        <option value="Dallas">Dallas</option>
+                        <option value="Guadalajara">Guadalajara</option>
+                        <option value="Houston">Houston</option>
+                        <option value="Kansas City">Kansas City</option>
+                        <option value="Los Angeles">Los Angeles</option>
+                        <option value="Mexico City">Mexico City</option>
+                        <option value="Miami">Miami</option>
+                        <option value="Monterrey">Monterrey</option>
+                        <option value="New York/New Jersey">New York/New Jersey</option>
+                        <option value="Philadelphia">Philadelphia</option>
+                        <option value="San Francisco">San Francisco</option>
+                        <option value="Seattle">Seattle</option>
+                        <option value="Toronto">Toronto</option>
+                        <option value="Vancouver">Vancouver</option>
+                    </select>
+
+                    <select class="filter-select" id="filterStatus">
+                        <option value="all">All Matches</option>
+                        <option value="predicted">Predicted Only</option>
+                        <option value="unpredicted">Unpredicted Only</option>
+                    </select>
+                </div>
+
+                <div class="search-input-wrapper">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" class="search-input" id="searchTeam" placeholder="Search by team name...">
+                </div>
+            </div>
+
+            <!-- Matches List Grid -->
+            <div class="match-grid" id="matchGrid">
+                <!-- Match cards will be dynamically injected here -->
+            </div>
+        </section>
+
+        <!-- Standings Tab -->
+        <section class="tab-panel" id="panel-standings">
+            <!-- Grid of 12 Groups -->
+            <div class="groups-container" id="groupsContainer">
+                <!-- Group tables will be dynamically injected here -->
+            </div>
+
+            <!-- Best 3rd Place Standings comparative table -->
+            <div class="third-places-info">
+                <h3 class="third-places-title" id="thirdPlacesTitle"><span>ℹ️</span> 3rd Place Teams Ranking</h3>
+                <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 1rem;" id="thirdPlacesDesc">
+                    The top 8 third-place teams across all 12 groups advance to the Round of 32. Green rows indicate teams currently qualifying.
+                </p>
+                <div class="table-wrapper">
+                    <table class="standings-table" id="thirdPlaceTable">
+                        <thead>
+                            <tr>
+                                <th style="width: 50px;" id="th-pos">Pos</th>
+                                <th style="width: 50px;" id="th-group">Group</th>
+                                <th id="th-team">Team</th>
+                                <th class="center" style="width: 40px;" id="th-p">P</th>
+                                <th class="center" style="width: 40px;" id="th-w">W</th>
+                                <th class="center" style="width: 40px;" id="th-d">D</th>
+                                <th class="center" style="width: 40px;" id="th-l">L</th>
+                                <th class="center" style="width: 50px;" id="th-gd">GD</th>
+                                <th class="center" style="width: 50px;" id="th-gf">GF</th>
+                                <th class="center" style="width: 60px;" id="th-pts">PTS</th>
+                            </tr>
+                        </thead>
+                        <tbody id="thirdPlaceBody">
+                            <!-- Injected dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bracket Tab -->
+        <section class="tab-panel" id="panel-bracket">
+            <div class="bracket-wrapper">
+                <div class="bracket-controls">
+                    <span id="bracketInstructions" style="font-size: 0.9rem; color: var(--text-secondary); max-width: 600px; text-align: center; display: block; margin: 0 auto 1.5rem;">
+                        💡 <strong>Knockout bracket populates dynamically!</strong> Complete predictions in the Group Stage, then enter scores below. Tie matches require entering penalty shootout scores (e.g. 5-4) to determine the advancing team.
+                    </span>
+                </div>
+                <div class="bracket-rounds-container" id="bracketContainer">
+                    <!-- Dynamic Bracket Rounds will be injected here:
+                         Round of 32, Round of 16, Quarterfinals, Semifinals, Final, Champion -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Help Tab -->
+        <section class="tab-panel" id="panel-help">
+            <div class="help-container" id="helpContainer">
+                <!-- Will be dynamically injected by JavaScript for translation -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer style="text-align: center; padding: 2rem; color: var(--text-muted); border-top: 1px solid var(--border-color); font-size: 0.8rem; margin-top: 4rem;">
+        <p id="footerCreated">FIFA World Cup 2026 Schedule & Predictor Tool. Created in 2026.</p>
+        <p id="footerDisclaimer" style="margin-top: 0.25rem;">Disclaimer: Match dates, times, and venue designations are based on official scheduled releases.</p>
+    </footer>
+
+    <!-- App JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>
